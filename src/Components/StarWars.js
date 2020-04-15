@@ -1,11 +1,27 @@
-import React, {Component} from 'react';
-
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { getCharacters } from "../redux/starWarsReducer";
 class StarWars extends Component {
-    render(){
-        return (
-            <div></div>
-        )
-    }
+  componentDidMount() {
+    this.props.getCharacters();
+  }
+  render() {
+    console.log(this.props);
+    return (
+      <div>
+        <h1>stuff</h1>
+        <p>{this.props.characters.name}</p>
+      </div>
+    );
+  }
 }
 
-export default StarWars;
+const mapStateToProps = (reduxState) => {
+  const { characters } = reduxState.starWarsReducer;
+
+  return {
+    characters,
+  };
+};
+
+export default connect(mapStateToProps, { getCharacters })(StarWars);
